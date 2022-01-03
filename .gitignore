@@ -1,2 +1,5 @@
 .idea
 .gitignore
+files
+configs
+__pycache__
