@@ -1,10 +1,5 @@
 import requests
-from configs.clickUp import CLICKUP_API_KEY
-
-
-def withAuth(headers):
-    headers['Authorization'] = CLICKUP_API_KEY
-    return headers
+from ClickUp.API.APIHelper import withAuth
 
 
 def getTask(taskId: str) -> dict:
@@ -26,6 +21,7 @@ def getTaskComments(taskId: str) -> dict:
     finally:
         pass
     return taskComments
+
 
 
 if __name__ == '__main__':
