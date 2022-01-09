@@ -18,7 +18,7 @@ def handleTechSupportTaskCreatedEvent(payload: dict) -> flask.Response:
     taskComments = CAPI.getTaskComments(taskId)
     for comment in taskComments['comments']:
         if comment['user']['source'] == 'Zendesk':
-            return make_response(jsonify({'message': 'This task is posted from Zendesk'}), 200)
+            return make_response(jsonify({'message': 'This task is posted from Zendesk'}), 202)
     # else
     taskDetail = CAPI.getTask(taskId)
     if taskDetail['list']['id'] == LIST_ID['CUSTOMER_SUPPORT_TECHNICAL']:
@@ -27,7 +27,7 @@ def handleTechSupportTaskCreatedEvent(payload: dict) -> flask.Response:
             jsonify({'message': f'Ticket (#{newTicket["ticket"]["id"]}) has been created in zendesk'}),
             201
         )
-    return make_response(202)
+    return make_response({'message': 'No action taken'}, 202)
 
 
 def handleTaskDeletedEvent(payload: dict) -> flask.Response:

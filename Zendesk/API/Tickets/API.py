@@ -16,7 +16,7 @@ def createTicketFromTask(taskDetail: dict, group: int) -> dict:
         print(newTicket)
         fn = Path(__file__).parents[3] / 'logs' / 'TasksTickets.csv'
         with open(fn, 'a') as file:
-            file.write(f"{taskDetail['id']},,{newTicket['ticket']['id']}")
+            file.write(f"{taskDetail['id']},{taskDetail['parent']},{newTicket['ticket']['id']}")
             file.write('\n')
         return newTicket
     except Exception as e:
