@@ -2,7 +2,6 @@ import hmac
 import json
 import hashlib
 import requests
-
 from ClickUp.API.Webhook import getWebhookSecret
 
 

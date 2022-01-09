@@ -36,7 +36,7 @@ def handleClickUpTaskEvents() -> flask.Response:
         else:
             return make_response(jsonify({'message': 'Payload cannot be verified'}), 400)
     else:
-        return make_response(jsonify({'message': 'No payload provided'}), 400)
+        return make_response(jsonify({'message': 'Payload not provided'}), 400)
 
     # ----- Check event types and handle them accordingly ----- #
     if payload['event'] == 'taskCreated':
@@ -66,7 +66,7 @@ def handleTechSupportTask():
         else:
             return make_response(jsonify({'message': 'Payload cannot be verified'}), 400)
     else:
-        return make_response(jsonify({'message': 'No payload provided'}), 400)
+        return make_response(jsonify({'message': 'Payload not provided'}), 400)
 
     # ----- Check event types and handle them accordingly ----- #
     if payload['event'] == 'taskCreated':
