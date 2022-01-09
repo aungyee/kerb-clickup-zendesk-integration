@@ -21,13 +21,11 @@ def handleTechSupportTaskCreatedEvent(payload: dict) -> flask.Response:
             return make_response(jsonify({'message': 'This task is posted from Zendesk'}), 202)
     # else
     taskDetail = CAPI.getTask(taskId)
-    if taskDetail['list']['id'] == LIST_ID['CUSTOMER_SUPPORT_TECHNICAL']:
-        newTicket = ZAPI.createTicketFromTask(taskDetail, GROUP_IDS['TECH_SUPPORT_TEAM'])
-        return make_response(
-            jsonify({'message': f'Ticket (#{newTicket["ticket"]["id"]}) has been created in zendesk'}),
-            201
-        )
-    return make_response({'message': 'No action taken'}, 202)
+    newTicket = ZAPI.createTicketFromTask(taskDetail, GROUP_IDS['TECH_SUPPORT_TEAM'])
+    return make_response(
+        jsonify({'message': f'Ticket (#{newTicket["ticket"]["id"]}) has been created in zendesk'}),
+        201
+    )
 
 
 def handleTaskDeletedEvent(payload: dict) -> flask.Response:
