@@ -14,17 +14,17 @@ def createPayloadFromTask(taskDetail, group):
         bookingType = None
 
         for field in taskDetail['custom_fields']:
-            if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['BOOKING_TYPES']['id']:
+            if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['BOOKING_TYPES']['id'] and field['value']:
                 bookingType = TECH_SUPPORT_CUSTOM_FIELDS['BOOKING_TYPES']['values'][field['value']]
-            if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['DATE_BOOKED']['id']:
+            if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['DATE_BOOKED']['id'] and field['value']:
                 bookingDate = datetime.utcfromtimestamp(int(field['value'])/1000).strftime('%d %B, %Y')
-            if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['USER_EMAIL']['id']:
+            if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['USER_EMAIL']['id'] and field['value']:
                 requestor = field['value']
-            if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['SUPPORT_CATEGORY']['id']:
+            if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['SUPPORT_CATEGORY']['id'] and field['value']:
                 category = TECH_SUPPORT_CUSTOM_FIELDS['SUPPORT_CATEGORY']['values'][field['value']]
-            if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['SUPPORT_SUB_CATEGORY']['id']:
+            if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['SUPPORT_SUB_CATEGORY']['id'] and field['value']:
                 subcategory = TECH_SUPPORT_CUSTOM_FIELDS['SUPPORT_SUB_CATEGORY']['values'][field['value']]
-            if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['URGENCY']['id']:
+            if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['URGENCY']['id'] and field['value']:
                 urgency = TECH_SUPPORT_CUSTOM_FIELDS['URGENCY']['values'][field['value']]
 
         payload = {
