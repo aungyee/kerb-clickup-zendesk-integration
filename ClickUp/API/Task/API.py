@@ -23,6 +23,16 @@ def getTaskComments(taskId: str) -> dict:
     return taskComments
 
 
+def createTaskComment(taskId: str, comment: str) -> dict:
+    if taskId is None or comment is None:
+        return {}
+    try:
+        r = requests.post(f'https://api.clickup.com/api/v2/task/{taskId}/comment/', headers=withAuth({}), json={'comment_text': comment})
+        taskComment = r.json()
+    finally:
+        pass
+    return taskComment
+
 
 if __name__ == '__main__':
-    print(getTaskComments('1tryb69'))
+    print(createTaskComment('2ba3bp8', 'test'))

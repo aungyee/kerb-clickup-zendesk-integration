@@ -21,7 +21,8 @@ def handleTechSupportTaskCreatedEvent(payload: dict) -> flask.Response:
             return make_response(jsonify({'message': 'This task is posted from Zendesk'}), 202)
     # else
     taskDetail = CAPI.getTask(taskId)
-    newTicket = ZAPI.createTicketFromTask(taskDetail, GROUP_IDS['TECH_SUPPORT_TEAM'])
+    newTicket = ZAPI.createTicketFromTask(taskDetail, GROUP_IDS['CUSTOMER_SUCCESS_TEAM'])
+    CAPI.createTaskComment(taskId, f'Check Zendesk Ticket Here: https://kerb.zendesk.com/agent/tickets/{newTicket["ticket"]["id"]}/')
     return make_response(
         jsonify({'message': f'Ticket (#{newTicket["ticket"]["id"]}) has been created in zendesk'}),
         201

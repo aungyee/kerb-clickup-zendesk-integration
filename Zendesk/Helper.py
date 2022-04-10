@@ -13,22 +13,29 @@ def createPayloadFromTask(taskDetail, group):
         subcategory = None
         bookingDate = None
         bookingType = None
+        plateNumber = None
+        other = None
 
         for field in taskDetail['custom_fields']:
             if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['BOOKING_TYPES']['id'] and 'value' in field:
                 bookingType = TECH_SUPPORT_CUSTOM_FIELDS['BOOKING_TYPES']['values'][field['value']]
-            if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['DATE_BOOKED']['id'] and 'value' in field:
+            elif field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['DATE_BOOKED']['id'] and 'value' in field:
                 bookingDate = datetime.utcfromtimestamp(int(field['value'])/1000).strftime('%d %B, %Y')
-            if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['USER_EMAIL']['id'] and 'value' in field:
+            elif field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['USER_EMAIL']['id'] and 'value' in field:
                 requestor = field['value']
-            if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['SUPPORT_CATEGORY']['id'] and 'value' in field:
+            elif field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['SUPPORT_CATEGORY']['id'] and 'value' in field:
                 category = TECH_SUPPORT_CUSTOM_FIELDS['SUPPORT_CATEGORY']['values'][field['value']]
-            if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['SUPPORT_SUB_CATEGORY']['id'] and 'value' in field:
+            elif field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['SUPPORT_SUB_CATEGORY']['id'] and 'value' in field:
                 subcategory = TECH_SUPPORT_CUSTOM_FIELDS['SUPPORT_SUB_CATEGORY']['values'][field['value']]
-            if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['URGENCY']['id'] and 'value' in field:
+            elif field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['URGENCY']['id'] and 'value' in field:
                 urgency = TECH_SUPPORT_CUSTOM_FIELDS['URGENCY']['values'][field['value']]
-            if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['USER_NAME']['id'] and 'value' in field:
+            elif field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['USER_NAME']['id'] and 'value' in field:
                 requestorName = field['value']
+            elif field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['PLATE_NUMBER']['id'] and 'value' in field:
+                plateNumber = field['value']
+            else:
+                other = field['value']
+
 
         payload = {
             'ticket': {
@@ -48,6 +55,8 @@ def createPayloadFromTask(taskDetail, group):
                         Booking Type: {bookingType if bookingType is not None else 'Nil'}
                         Category    : {category if category is not None else 'Nil'}
                         Subcategory : {subcategory if subcategory is not None else 'Nil'}
+                        PlateNumber : {plateNumber if plateNumber is not None else 'Nil'}
+                        Other       : {other if other is not None else 'Nil'}
                         
                         """,
                     'public': False
