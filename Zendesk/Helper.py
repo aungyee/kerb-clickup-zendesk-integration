@@ -15,6 +15,7 @@ def createPayloadFromTask(taskDetail, group):
         bookingType = None
         plateNumber = None
         other = None
+        spaceId = None
 
         for field in taskDetail['custom_fields']:
             if field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['BOOKING_TYPES']['id'] and 'value' in field:
@@ -33,6 +34,8 @@ def createPayloadFromTask(taskDetail, group):
                 requestorName = field['value']
             elif field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['PLATE_NUMBER']['id'] and 'value' in field:
                 plateNumber = field['value']
+            elif field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['SPACE_ID']['id'] and 'value' in field:
+                spaceId = field['value']
             else:
                 other = field['value']
 
@@ -48,15 +51,16 @@ def createPayloadFromTask(taskDetail, group):
                         {taskDetail['description']}
                         
                         Details:
-                        Urgency     : {urgency if urgency is not None else 'Nil'}
-                        Name        : {requestorName if requestorName is not None else 'Nil'}
-                        Requester   : {requestor if requestor is not None else 'Nil'}
-                        Booking Date: {bookingDate if bookingDate is not None else 'Nil'}
-                        Booking Type: {bookingType if bookingType is not None else 'Nil'}
-                        Category    : {category if category is not None else 'Nil'}
-                        Subcategory : {subcategory if subcategory is not None else 'Nil'}
-                        PlateNumber : {plateNumber if plateNumber is not None else 'Nil'}
-                        Other       : {other if other is not None else 'Nil'}
+                        Urgency     : {urgency if urgency is not None else '-'}
+                        Name        : {requestorName if requestorName is not None else '-'}
+                        Requester   : {requestor if requestor is not None else '-'}
+                        Space ID    : {spaceId if spaceId is not None else '-'}
+                        Booking Date: {bookingDate if bookingDate is not None else '-'}
+                        Booking Type: {bookingType if bookingType is not None else '-'}
+                        Category    : {category if category is not None else '-'}
+                        Subcategory : {subcategory if subcategory is not None else '-'}
+                        PlateNumber : {plateNumber if plateNumber is not None else '-'}
+                        Other       : {other if other is not None else '-'}
                         
                         """,
                     'public': False
