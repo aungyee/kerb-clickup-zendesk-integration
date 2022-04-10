@@ -36,8 +36,6 @@ def createPayloadFromTask(taskDetail, group):
                 plateNumber = field['value']
             elif field['id'] == TECH_SUPPORT_CUSTOM_FIELDS['SPACE_ID']['id'] and 'value' in field:
                 spaceId = field['value']
-            else:
-                other = field['value']
 
 
         payload = {
