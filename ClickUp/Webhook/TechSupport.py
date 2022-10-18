@@ -9,6 +9,7 @@ from configs.zendesk import GROUP_IDS
 def handleTechSupportTaskCreatedEvent(payload: dict) -> flask.Response:
 
     taskId = payload['task_id']
+    CAPI.setTaskFieldValue(taskId, '564c2600-9fa3-47db-9a7c-010750d265ff', payload['date_created'])
 
     # Check if task already exist in the lookup table record
     if CTaskHelper.checkIfTaskExistsInZendesk(taskId):

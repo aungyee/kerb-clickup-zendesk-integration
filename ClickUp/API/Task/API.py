@@ -27,11 +27,24 @@ def createTaskComment(taskId: str, comment: str) -> dict:
     if taskId is None or comment is None:
         return {}
     try:
-        r = requests.post(f'https://api.clickup.com/api/v2/task/{taskId}/comment/', headers=withAuth({}), json={'comment_text': comment})
+        r = requests.post(f'https://api.clickup.com/api/v2/task/{taskId}/comment/', headers=withAuth({}),
+                          json={'comment_text': comment})
         taskComment = r.json()
     finally:
         pass
     return taskComment
+
+
+def setTaskFieldValue(taskId: str, fieldId: str, value) -> dict:
+    if taskId is None or fieldId is None or value is None:
+        return {}
+    try:
+        r = requests.post(f'https://api.clickup.com/api/v2/task/{taskId}/field/{fieldId}', headers=withAuth({}),
+                          json={'value': value})
+        taskField = r.json()
+    finally:
+        pass
+    return taskField
 
 
 if __name__ == '__main__':
