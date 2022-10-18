@@ -1,4 +1,5 @@
 import flask
+from datetime import datetime
 from flask import make_response, jsonify
 from ClickUp.API.Task import Helper as CTaskHelper, API as CAPI
 from Zendesk.API.Tickets import API as ZAPI
@@ -9,7 +10,7 @@ from configs.zendesk import GROUP_IDS
 def handleTechSupportTaskCreatedEvent(payload: dict) -> flask.Response:
 
     taskId = payload['task_id']
-    CAPI.setTaskFieldValue(taskId, '564c2600-9fa3-47db-9a7c-010750d265ff', payload['date_created'])
+    CAPI.setTaskFieldValue(taskId, '564c2600-9fa3-47db-9a7c-010750d265ff', payload['history_items']['date'])
 
     # Check if task already exist in the lookup table record
     if CTaskHelper.checkIfTaskExistsInZendesk(taskId):
